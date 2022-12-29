@@ -1,0 +1,510 @@
+
+SQL> conn aaryan
+Enter password:
+Connected.
+SQL> select* from tab;
+
+SQL> show user;
+USER is "AARYAN"
+SQL>
+SQL> create table employee(empcode number,name varchar2(6),salary number);
+
+Table created.
+
+SQL> desc employee;
+ Name
+
+
+       Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ EMPCODE
+
+
+                NUMBER
+ NAME
+
+
+                VARCHAR2(6)
+ SALARY
+
+
+                NUMBER
+
+SQL> select* from employee;
+
+no rows selected
+
+SQL> insert into employee values(&empcode, '&name',&salary);
+Enter value for empcode: 101
+Enter value for name: Amit
+Enter value for salary: 30000
+old   1: insert into employee values(&empcode, '&name',&salary)
+new   1: insert into employee values(101, 'Amit',30000)
+
+1 row created.
+
+SQL> /
+Enter value for empcode: 201
+Enter value for name: Kapil
+Enter value for salary: 22000
+old   1: insert into employee values(&empcode, '&name',&salary)
+new   1: insert into employee values(201, 'Kapil',22000)
+
+1 row created.
+
+SQL> /
+Enter value for empcode: 301
+Enter value for name: Rohit
+Enter value for salary: 45000
+old   1: insert into employee values(&empcode, '&name',&salary)
+new   1: insert into employee values(301, 'Rohit',45000)
+
+1 row created.
+
+SQL> /
+Enter value for empcode: 401
+Enter value for name: Amit
+Enter value for salary: 27000
+old   1: insert into employee values(&empcode, '&name',&salary)
+new   1: insert into employee values(401, 'Amit',27000)
+
+1 row created.
+
+SQL> /
+Enter value for empcode: 401
+Enter value for name: Amit
+Enter value for salary: 27000
+old   1: insert into employee values(&empcode, '&name',&salary)
+new   1: insert into employee values(401, 'Amit',27000)
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select* from employee;
+
+   EMPCODE NAME       SALARY
+---------- ------ ----------
+       101 Amit        30000
+       201 Kapil       22000
+       301 Rohit       45000
+       401 Amit        27000
+       401 Amit        27000
+
+SQL> insert into employee values(&empcode, '&name',&salary);
+Enter value for empcode: 901
+Enter value for name: Bhattacharya
+Enter value for salary: 33000
+old   1: insert into employee values(&empcode, '&name',&salary)
+new   1: insert into employee values(901, 'Bhattacharya',33000)
+insert into employee values(901, 'Bhattacharya',33000)
+                                 *
+ERROR at line 1:
+ORA-12899: value too large for column "AARYAN"."EMPLOYEE"."NAME" (actual: 12, maximum: 6)
+
+
+SQL> desc employee;
+ Name
+
+
+       Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ EMPCODE
+
+
+                NUMBER
+ NAME
+
+
+                VARCHAR2(6)
+ SALARY
+
+
+                NUMBER
+
+SQL> alter table employee modify (name varchar2(25));
+
+Table altered.
+
+SQL> desc employee;
+ Name
+
+
+       Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ EMPCODE
+
+
+                NUMBER
+ NAME
+
+
+                VARCHAR2(25)
+ SALARY
+
+
+                NUMBER
+
+SQL> select * from employee;
+
+   EMPCODE NAME                          SALARY
+---------- ------------------------- ----------
+       101 Amit                           30000
+       201 Kapil                          22000
+       301 Rohit                          45000
+       401 Amit                           27000
+       401 Amit                           27000
+
+SQL> insert into employee values(&empcode, '&name',&salary);
+Enter value for empcode: 901
+Enter value for name: Bhattacharya
+Enter value for salary: 33000
+old   1: insert into employee values(&empcode, '&name',&salary)
+new   1: insert into employee values(901, 'Bhattacharya',33000)
+
+1 row created.
+
+SQL> select* from employee;
+
+   EMPCODE NAME                          SALARY
+---------- ------------------------- ----------
+       101 Amit                           30000
+       201 Kapil                          22000
+       301 Rohit                          45000
+       401 Amit                           27000
+       401 Amit                           27000
+       901 Bhattacharya                   33000
+
+6 rows selected.
+
+SQL> alter table employee modify (name varchar2(5));
+alter table employee modify (name varchar2(5))
+                             *
+ERROR at line 1:
+ORA-01441: cannot decrease column length because some value is too big
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
+SQL> select name from employee;
+
+NAME
+-------------------------
+Amit
+Kapil
+Rohit
+Amit
+Amit
+Bhattacharya
+
+6 rows selected.
+
+SQL> select name,name,name,name from employee;
+
+NAME                      NAME                      NAME                      NAME
+------------------------- ------------------------- ------------------------- -------------------------
+Amit                      Amit                      Amit                      Amit
+Kapil                     Kapil                     Kapil                     Kapil
+Rohit                     Rohit                     Rohit                     Rohit
+Amit                      Amit                      Amit                      Amit
+Amit                      Amit                      Amit                      Amit
+Bhattacharya              Bhattacharya              Bhattacharya              Bhattacharya
+
+6 rows selected.
+
+SQL> select name,empcode from employee order by salary;
+
+NAME                         EMPCODE
+------------------------- ----------
+Kapil                            201
+Amit                             401
+Amit                             401
+Amit                             101
+Bhattacharya                     901
+Rohit                            301
+
+6 rows selected.
+
+SQL> select name,salary,salary+500,salary-50000 from employee;
+
+NAME                          SALARY SALARY+500 SALARY-50000
+------------------------- ---------- ---------- ------------
+Amit                           30000      30500       -20000
+Kapil                          22000      22500       -28000
+Rohit                          45000      45500        -5000
+Amit                           27000      27500       -23000
+Amit                           27000      27500       -23000
+Bhattacharya                   33000      33500       -17000
+
+6 rows selected.
+
+SQL> select sum(salary) from employee;
+
+SUM(SALARY)
+-----------
+     184000
+
+SQL> select min(salary) from employee;
+
+MIN(SALARY)
+-----------
+      22000
+
+SQL> select max(salary) from employee;
+
+MAX(SALARY)
+-----------
+      45000
+
+SQL> select name,salary,salary+0.5*salary from employee;
+
+NAME                          SALARY SALARY+0.5*SALARY
+------------------------- ---------- -----------------
+Amit                           30000             45000
+Kapil                          22000             33000
+Rohit                          45000             67500
+Amit                           27000             40500
+Amit                           27000             40500
+Bhattacharya                   33000             49500
+
+6 rows selected.
+SQL> create table newemp as select* from employee;
+
+Table created.
+
+SQL> select* from newemp;
+
+   EMPCODE NAME                          SALARY
+---------- ------------------------- ----------
+       101 Amit                           30000
+       201 Kapil                          22000
+       301 Rohit                          45000
+       401 Amit                           27000
+       401 Amit                           27000
+       901 Bhattacharya                   33000
+
+6 rows selected.
+
+SQL> create table emp2 as select* from employee where 1=0;
+
+Table created.
+
+SQL> select* from employee;
+
+   EMPCODE NAME                          SALARY
+---------- ------------------------- ----------
+       101 Amit                           30000
+       201 Kapil                          22000
+       301 Rohit                          45000
+       401 Amit                           27000
+       401 Amit                           27000
+       901 Bhattacharya                   33000
+
+6 rows selected.
+
+SQL> select* from newemp;
+
+   EMPCODE NAME                          SALARY
+---------- ------------------------- ----------
+       101 Amit                           30000
+       201 Kapil                          22000
+       301 Rohit                          45000
+       401 Amit                           27000
+       401 Amit                           27000
+       901 Bhattacharya                   33000
+
+6 rows selected.
+
+SQL> select* from emp2;
+
+no rows selected
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPCODE                                            NUMBER
+ NAME                                               VARCHAR2(25)
+ SALARY                                             NUMBER
+
+SQL> desc newemp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPCODE                                            NUMBER
+ NAME                                               VARCHAR2(25)
+ SALARY                                             NUMBER
+
+SQL> desc emp2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPCODE                                            NUMBER
+ NAME                                               VARCHAR2(25)
+ SALARY                                             NUMBER
+
+SQL> create table mytable as select name,salary from employee;
+
+Table created.
+
+SQL> select* from employee;
+
+   EMPCODE NAME                          SALARY
+---------- ------------------------- ----------
+       101 Amit                           30000
+       201 Kapil                          22000
+       301 Rohit                          45000
+       401 Amit                           27000
+       401 Amit                           27000
+       901 Bhattacharya                   33000
+
+6 rows selected.
+
+SQL> select* from mytable;
+
+NAME                          SALARY
+------------------------- ----------
+Amit                           30000
+Kapil                          22000
+Rohit                          45000
+Amit                           27000
+Amit                           27000
+Bhattacharya                   33000
+
+6 rows selected.
+
+SQL> select* from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+DUPLICATE                      TABLE
+EMP2                           TABLE
+EMPLOYEE                       TABLE
+MYTABLE                        TABLE
+NEWEMP                         TABLE
+
+SQL> commit;
+
+Commit complete.
+
+SQL> alter table newemp drop column name and empcode;
+alter table newemp drop column name and empcode
+                                    *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> alter table newemp drop column name,empcode;
+alter table newemp drop column name,empcode
+                                   *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> alter table newemp drop column name,column empcode;
+alter table newemp drop column name,column empcode
+                                   *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> alter table newemp drop column name,drop column empcode;
+alter table newemp drop column name,drop column empcode
+                                   *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> alter table newemp drop column name & empcode;
+Enter value for empcode: fdfggggs
+old   1: alter table newemp drop column name & empcode
+new   1: alter table newemp drop column name fdfggggs
+alter table newemp drop column name fdfggggs
+                                    *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> alter table newemp drop column name;
+
+Table altered.
+
+SQL> alter table newemp drop column column;
+alter table newemp drop column column
+                               *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> alter table newemp drop column empcode;
+
+Table altered.
+
+SQL> select* from newemp;
+
+    SALARY
+----------
+     30000
+     22000
+     45000
+     27000
+     27000
+     33000
+
+6 rows selected.
+
+SQL> truncate table mytable;
+
+Table truncated.
+
+SQL> select* from mytable;
+
+no rows selected
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select* from mytable;
+
+no rows selected
+
+SQL> drop table mytable;
+
+Table dropped.
+
+SQL> select * from mytable;
+select * from mytable
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select* from mytable;
+select* from mytable
+             *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select* from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+DUPLICATE                      TABLE
+EMP2                           TABLE
+EMPLOYEE                       TABLE
+NEWEMP                         TABLE
+
+SQL> commit
+  2  ;
+
+Commit complete.
+
+SQL>
