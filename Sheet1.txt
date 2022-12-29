@@ -1,0 +1,96 @@
+1. connect to system.
+2. create user 
+SQL> create user aryan identified by agarwal;
+
+User created.
+
+3. grant access to the user: 
+SQL> grant resource, connect to aaryan;
+
+Grant succeeded.
+
+SQL> conn aryan
+Enter password:
+Connected.
+
+SQL> select* from tab;
+
+no rows selected
+
+SQL> select current_date from dual;
+
+SQL>clear screen
+
+SQL> show all;
+
+SQL> select 1+2 from dual;
+
+SQL> create table student(rollno number, name varchar2(10), city varchar2(10));
+
+SQL> desc student;
+
+SQL> select* from student;
+
+SQL> insert into student values(&rollno, '&name', '&city');
+
+SQL> commit;
+
+SQL> select* from student;
+
+SQL> alter table student add email varchar2(15);
+
+SQL> update student set email='btech@gmail.com';
+
+SQL> rollback;
+
+SQL> update student set email='abc@xyz' where name='Amit';
+
+SQL> set linesize 20;
+SQL> select* from student;
+SQL> desc student;
+SQL> set linesize 500;
+SQL> select* from student;
+SQL> set pagesize 7;
+SQL> set heading off;
+SQL> select* from student;
+SQL> set heading on;
+SQL> select* from student;
+SQL> set pause on
+SQL> select* from student;
+SQL> alter table student drop column name;
+SQL> desc student;
+SQL> select * from student;
+SQL> set pause off;
+SQL> create table duplicate as select* from student;
+SQL> truncate table student;
+SQL> truncate table student;
+SQL> select* from student;
+SQL> drop table student;
+SQL> select* from student;
+select* from student
+             *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select* from student;
+select* from student
+             *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+SQL> select* from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+DUPLICATE                      TABLE
+
+
+SQL> show user;
+USER is "AARYAN"
+
+SQL> disc
+Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
