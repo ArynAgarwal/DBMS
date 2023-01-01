@@ -1,0 +1,292 @@
+
+SQL> create table course (coursecode number primary key,coursename varchar(10) not null,coursefees number check(coursefees>=20000),department varchar(10));
+
+Table created.
+
+SQL> create table student (rollno number primary key, name varchar(10), city varchar(10) not null);
+
+Table created.
+
+SQL> create table register (rollno number references student, coursecode number references course);
+
+Table created.
+
+SQL> insert into course values(&coursecode,'&coursename',&coursefees,'&department');
+Enter value for coursecode: 101
+Enter value for coursename: MCA
+Enter value for coursefees: 80000
+Enter value for department: MCA
+old   1: insert into course values(&coursecode,'&coursename',&coursefees,'&department')
+new   1: insert into course values(101,'MCA',80000,'MCA')
+
+1 row created.
+
+SQL> /
+Enter value for coursecode: 102
+Enter value for coursename: MBA
+Enter value for coursefees: 60000
+Enter value for department: MBA
+old   1: insert into course values(&coursecode,'&coursename',&coursefees,'&department')
+new   1: insert into course values(102,'MBA',60000,'MBA')
+
+1 row created.
+
+SQL> /
+Enter value for coursecode: 103
+Enter value for coursename: Btech
+Enter value for coursefees: 75000
+Enter value for department: Engg
+old   1: insert into course values(&coursecode,'&coursename',&coursefees,'&department')
+new   1: insert into course values(103,'Btech',75000,'Engg')
+
+1 row created.
+
+SQL> /
+Enter value for coursecode: 104
+Enter value for coursename: BCA
+Enter value for coursefees: 30000
+Enter value for department: MCA
+old   1: insert into course values(&coursecode,'&coursename',&coursefees,'&department')
+new   1: insert into course values(104,'BCA',30000,'MCA')
+
+1 row created.
+
+SQL> /
+Enter value for coursecode: 105
+Enter value for coursename: BSc(IT)
+Enter value for coursefees: 25000
+Enter value for department: MCA
+old   1: insert into course values(&coursecode,'&coursename',&coursefees,'&department')
+new   1: insert into course values(105,'BSc(IT)',25000,'MCA')
+
+1 row created.
+
+SQL> /
+Enter value for coursecode: 106
+Enter value for coursename: MSc(IT)
+Enter value for coursefees: 35000
+Enter value for department: MCA
+old   1: insert into course values(&coursecode,'&coursename',&coursefees,'&department')
+new   1: insert into course values(106,'MSc(IT)',35000,'MCA')
+
+1 row created.
+
+SQL> /
+Enter value for coursecode: 107
+Enter value for coursename: BBA
+Enter value for coursefees: 22000
+Enter value for department: MBA
+old   1: insert into course values(&coursecode,'&coursename',&coursefees,'&department')
+new   1: insert into course values(107,'BBA',22000,'MBA')
+
+1 row created.
+
+SQL> select* from course;
+
+COURSECODE COURSENAME COURSEFEES DEPARTMENT
+---------- ---------- ---------- ----------
+       101 MCA             80000 MCA
+       102 MBA             60000 MBA
+       103 Btech           75000 Engg
+       104 BCA             30000 MCA
+       105 BSc(IT)         25000 MCA
+       106 MSc(IT)         35000 MCA
+       107 BBA             22000 MBA
+
+7 rows selected.
+
+SQL> insert into student values(&rollno,'&name','&city');
+Enter value for rollno: 1
+Enter value for name: Amit
+Enter value for city: Delhi
+old   1: insert into student values(&rollno,'&name','&city')
+new   1: insert into student values(1,'Amit','Delhi')
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 2
+Enter value for name: Sumit
+Enter value for city: Goa
+old   1: insert into student values(&rollno,'&name','&city')
+new   1: insert into student values(2,'Sumit','Goa')
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 3
+Enter value for name: Shweta
+Enter value for city: Gwaliar
+old   1: insert into student values(&rollno,'&name','&city')
+new   1: insert into student values(3,'Shweta','Gwaliar')
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 4
+Enter value for name: Kumar
+Enter value for city: Goa
+old   1: insert into student values(&rollno,'&name','&city')
+new   1: insert into student values(4,'Kumar','Goa')
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 5
+Enter value for name: Puneet
+Enter value for city: Meerut
+old   1: insert into student values(&rollno,'&name','&city')
+new   1: insert into student values(5,'Puneet','Meerut')
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 6
+Enter value for name: Bharat
+Enter value for city: Gwaliar
+old   1: insert into student values(&rollno,'&name','&city')
+new   1: insert into student values(6,'Bharat','Gwaliar')
+
+1 row created.
+
+SQL> insert into register values(&rollno,&coursecode);
+Enter value for rollno: 2
+Enter value for coursecode: 101
+old   1: insert into register values(&rollno,&coursecode)
+new   1: insert into register values(2,101)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 4
+Enter value for coursecode: 103
+old   1: insert into register values(&rollno,&coursecode)
+new   1: insert into register values(4,103)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 5
+Enter value for coursecode: 101
+old   1: insert into register values(&rollno,&coursecode)
+new   1: insert into register values(5,101)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 3
+Enter value for coursecode: 105
+old   1: insert into register values(&rollno,&coursecode)
+new   1: insert into register values(3,105)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 1
+Enter value for coursecode: 103
+old   1: insert into register values(&rollno,&coursecode)
+new   1: insert into register values(1,103)
+
+1 row created.
+
+SQL>
+SQL> select* from student where rollno not in (select rollno from register);
+
+    ROLLNO NAME       CITY
+---------- ---------- ----------
+         6 Bharat     Gwaliar
+
+SQL> select rollno from student where rollno not in (select rollno from register);
+
+    ROLLNO
+----------
+         6
+
+SQL>
+SQL> select * from student where rollno in(select rollno from register where coursecode in(select coursecode from course where coursename='MCA'));
+
+    ROLLNO NAME       CITY
+---------- ---------- ----------
+         2 Sumit      Goa
+         5 Puneet     Meerut
+
+SQL> select * from course where coursecode not in (select coursecode from register);
+
+COURSECODE COURSENAME COURSEFEES DEPARTMENT
+---------- ---------- ---------- ----------
+       104 BCA             30000 MCA
+       106 MSc(IT)         35000 MCA
+       102 MBA             60000 MBA
+       107 BBA             22000 MBA
+
+SQL> select * from course where coursecode in (select coursecode from register);
+
+COURSECODE COURSENAME COURSEFEES DEPARTMENT
+---------- ---------- ---------- ----------
+       101 MCA             80000 MCA
+       103 Btech           75000 Engg
+       105 BSc(IT)         25000 MCA
+
+SQL> select* from course where coursefees>(select coursefees from course where coursename='BCA');
+
+COURSECODE COURSENAME COURSEFEES DEPARTMENT
+---------- ---------- ---------- ----------
+       101 MCA             80000 MCA
+       102 MBA             60000 MBA
+       103 Btech           75000 Engg
+       106 MSc(IT)         35000 MCA
+
+SQL> select sum(coursefees) as total fees,avg(coursefees) as average fees from course;
+select sum(coursefees) as total fees,avg(coursefees) as average fees from course
+                                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select sum(coursefees) as total_fees,avg(coursefees) as average_fees from course;
+
+TOTAL_FEES AVERAGE_FEES
+---------- ------------
+    327000   46714.2857
+
+SQL> select department,sum(coursefees) from course group by department;
+
+DEPARTMENT SUM(COURSEFEES)
+---------- ---------------
+MBA                  82000
+Engg                 75000
+MCA                 170000
+
+SQL> select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course;
+select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course
+                                                                                                                                                                                                                  *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course));
+select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course))
+                                                                                                                                                                                                                    *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course)));
+
+MAX(COURSEFEES)
+---------------
+          75000
+
+SQL> select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course where coursefees not in(select max(coursefees) from course)));
+
+MAX(COURSEFEES)
+---------------
+          75000
+
+SQL> select min(coursefees) from (select coursefees from course where rownum < 5 order by coursefees desc);
+
+MIN(COURSEFEES)
+---------------
+          30000
+
+SQL>
