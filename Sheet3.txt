@@ -1,0 +1,810 @@
+
+SQL> conn aaryan
+Enter password:
+Connected.
+SQL> select* from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+DUPLICATE                      TABLE
+EMP2                           TABLE
+EMPLOYEE                       TABLE
+NEWEMP                         TABLE
+
+SQL> show user from dual;
+USER is "AARYAN"
+SP2-0158: unknown SHOW option "from"
+SP2-0158: unknown SHOW option "dual"
+SQL> select user from dual;
+
+USER
+------------------------------
+AARYAN
+
+SQL> create table students(rollno number(6),name varchar(15),city varchar(12), pincode varchar(8),age number(2));
+
+Table created.
+
+SQL> desc students
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(6)
+ NAME                                               VARCHAR2(15)
+ CITY                                               VARCHAR2(12)
+ PINCODE                                            VARCHAR2(8)
+ AGE                                                NUMBER(2)
+
+SQL> insert into students values(&rollno,&name,&city,&pincode,&age);
+Enter value for rollno: 1
+Enter value for name: 'Amit'
+Enter value for city: 'Delhi'
+Enter value for pincode: 214213
+Enter value for age: 21
+old   1: insert into students values(&rollno,&name,&city,&pincode,&age)
+new   1: insert into students values(1,'Amit','Delhi',214213,21)
+
+1 row created.
+
+SQL> insert into students values(&rollno,'&name','&city',&pincode,&age);
+Enter value for rollno: 2
+Enter value for name: Kumar
+Enter value for city: Bombay
+Enter value for pincode:
+Enter value for age: 25
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(2,'Kumar','Bombay',,25)
+insert into students values(2,'Kumar','Bombay',,25)
+                                               *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> /
+Enter value for rollno: 2
+Enter value for name: Kumar
+Enter value for city: Bombay
+Enter value for pincode: ''
+Enter value for age: 25
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(2,'Kumar','Bombay','',25)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 3
+Enter value for name: Kshitij
+Enter value for city: Madras
+Enter value for pincode: 110101
+Enter value for age: 16
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(3,'Kshitij','Madras',110101,16)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 4
+Enter value for name: Puneet
+Enter value for city: Calcutta
+Enter value for pincode: ''
+Enter value for age: 18
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(4,'Puneet','Calcutta','',18)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 5
+Enter value for name: Rohit
+Enter value for city: Delhi
+Enter value for pincode: 502207
+Enter value for age: 19
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(5,'Rohit','Delhi',502207,19)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 6
+Enter value for name: Kamal
+Enter value for city: Dehradun
+Enter value for pincode: ''
+Enter value for age: 28
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(6,'Kamal','Dehradun','',28)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 7
+Enter value for name: Shweta
+Enter value for city: Dehradun
+Enter value for pincode: 98102
+Enter value for age: 23
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(7,'Shweta','Dehradun',98102,23)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 8
+Enter value for name: Mohit
+Enter value for city: Bombay
+Enter value for pincode: 12434
+Enter value for age: 22
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(8,'Mohit','Bombay',12434,22)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 9
+Enter value for name: Pankaj
+Enter value for city: Bombay
+Enter value for pincode: ''
+Enter value for age: 17
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(9,'Pankaj','Bombay','',17)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 10
+Enter value for name: Parul
+Enter value for city: dELhi
+Enter value for pincode: 76312
+Enter value for age: 24
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(10,'Parul','dELhi',76312,24)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 11
+Enter value for name: Rohit
+Enter value for city: Baroda
+Enter value for pincode: 12131
+Enter value for age: 29
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(11,'Rohit','Baroda',12131,29)
+
+1 row created.
+
+SQL> select* from students;
+
+    ROLLNO NAME            CITY         PINCODE         AGE
+---------- --------------- ------------ -------- ----------
+         1 Amit            Delhi        214213           21
+         2 Kumar           Bombay                        25
+         3 Kshitij         Madras       110101           16
+         4 Puneet          Calcutta                      18
+         5 Rohit           Delhi        502207           19
+         6 Kamal           Dehradun                      28
+         7 Shweta          Dehradun     98102            23
+         8 Mohit           Bombay       12434            22
+         9 Pankaj          Bombay                        17
+        10 Parul           dELhi        76312            24
+        11 Rohit           Baroda       12131            29
+
+11 rows selected.
+
+SQL> select name from students where city='Delhi';
+
+NAME
+---------------
+Amit
+Rohit
+
+SQL> select* from students where name='A%';
+
+no rows selected
+
+SQL> select* from students where name like 'A%';
+
+    ROLLNO NAME            CITY         PINCODE         AGE
+---------- --------------- ------------ -------- ----------
+         1 Amit            Delhi        214213           21
+
+SQL> select* from students where name like '_a%';
+
+    ROLLNO NAME            CITY         PINCODE         AGE
+---------- --------------- ------------ -------- ----------
+         6 Kamal           Dehradun                      28
+         9 Pankaj          Bombay                        17
+        10 Parul           dELhi        76312            24
+
+SQL> select* from students where name like '%it';
+
+    ROLLNO NAME            CITY         PINCODE         AGE
+---------- --------------- ------------ -------- ----------
+         1 Amit            Delhi        214213           21
+         5 Rohit           Delhi        502207           19
+         8 Mohit           Bombay       12434            22
+        11 Rohit           Baroda       12131            29
+
+SQL> select* from students where name like '%t%';
+
+    ROLLNO NAME            CITY         PINCODE         AGE
+---------- --------------- ------------ -------- ----------
+         1 Amit            Delhi        214213           21
+         3 Kshitij         Madras       110101           16
+         4 Puneet          Calcutta                      18
+         5 Rohit           Delhi        502207           19
+         7 Shweta          Dehradun     98102            23
+         8 Mohit           Bombay       12434            22
+        11 Rohit           Baroda       12131            29
+
+7 rows selected.
+
+SQL> select* from students where name like '%t%' and name not like '%t';
+
+    ROLLNO NAME            CITY         PINCODE         AGE
+---------- --------------- ------------ -------- ----------
+         3 Kshitij         Madras       110101           16
+         7 Shweta          Dehradun     98102            23
+
+SQL> select* from students where age>25 and city='Dehradun';
+
+    ROLLNO NAME            CITY         PINCODE         AGE
+---------- --------------- ------------ -------- ----------
+         6 Kamal           Dehradun                      28
+
+SQL> select distinct(city) from students;
+
+CITY
+------------
+Dehradun
+Bombay
+Calcutta
+dELhi
+Delhi
+Baroda
+Madras
+
+7 rows selected.
+
+SQL> select name from students order by name;
+
+NAME
+---------------
+Amit
+Kamal
+Kshitij
+Kumar
+Mohit
+Pankaj
+Parul
+Puneet
+Rohit
+Rohit
+Shweta
+
+11 rows selected.
+
+SQL> select * from students where age<20 or city='Bombay';
+
+    ROLLNO NAME            CITY         PINCODE         AGE
+---------- --------------- ------------ -------- ----------
+         2 Kumar           Bombay                        25
+         3 Kshitij         Madras       110101           16
+         4 Puneet          Calcutta                      18
+         5 Rohit           Delhi        502207           19
+         8 Mohit           Bombay       12434            22
+         9 Pankaj          Bombay                        17
+
+6 rows selected.
+
+SQL> select * from students where city not like 'Dehradun';
+
+    ROLLNO NAME            CITY         PINCODE         AGE
+---------- --------------- ------------ -------- ----------
+         1 Amit            Delhi        214213           21
+         2 Kumar           Bombay                        25
+         3 Kshitij         Madras       110101           16
+         4 Puneet          Calcutta                      18
+         5 Rohit           Delhi        502207           19
+         8 Mohit           Bombay       12434            22
+         9 Pankaj          Bombay                        17
+        10 Parul           dELhi        76312            24
+        11 Rohit           Baroda       12131            29
+
+9 rows selected.
+
+SQL> select upper(name) from students;
+
+UPPER(NAME)
+---------------
+AMIT
+KUMAR
+KSHITIJ
+PUNEET
+ROHIT
+KAMAL
+SHWETA
+MOHIT
+PANKAJ
+PARUL
+ROHIT
+
+11 rows selected.
+
+SQL> select lower(city) from students;
+
+LOWER(CITY)
+------------
+delhi
+bombay
+madras
+calcutta
+delhi
+dehradun
+dehradun
+bombay
+bombay
+delhi
+baroda
+
+11 rows selected.
+
+SQL> select lower(name),upper(city) from students;
+
+LOWER(NAME)     UPPER(CITY)
+--------------- ------------
+amit            DELHI
+kumar           BOMBAY
+kshitij         MADRAS
+puneet          CALCUTTA
+rohit           DELHI
+kamal           DEHRADUN
+shweta          DEHRADUN
+mohit           BOMBAY
+pankaj          BOMBAY
+parul           DELHI
+rohit           BARODA
+
+11 rows selected.
+
+SQL> select upper(*) from students;
+select upper(*) from students
+             *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select upper(rollno,name,city,pincode,age) from students;
+select upper(rollno,name,city,pincode,age) from students
+       *
+ERROR at line 1:
+ORA-00909: invalid number of arguments
+
+
+SQL> select rollno,upper(name,city),pincode,age from students;
+select rollno,upper(name,city),pincode,age from students
+              *
+ERROR at line 1:
+ORA-00909: invalid number of arguments
+
+
+SQL> select rollno,upper(name),upper(city),pincode,age from students;
+
+    ROLLNO UPPER(NAME)     UPPER(CITY)  PINCODE         AGE
+---------- --------------- ------------ -------- ----------
+         1 AMIT            DELHI        214213           21
+         2 KUMAR           BOMBAY                        25
+         3 KSHITIJ         MADRAS       110101           16
+         4 PUNEET          CALCUTTA                      18
+         5 ROHIT           DELHI        502207           19
+         6 KAMAL           DEHRADUN                      28
+         7 SHWETA          DEHRADUN     98102            23
+         8 MOHIT           BOMBAY       12434            22
+         9 PANKAJ          BOMBAY                        17
+        10 PARUL           DELHI        76312            24
+        11 ROHIT           BARODA       12131            29
+
+11 rows selected.
+
+SQL> select* from students where pincode like NULL;
+
+no rows selected
+
+SQL> select* from students where pincode like ' ';
+
+no rows selected
+
+SQL> select* from students where pincode like '';
+
+no rows selected
+
+SQL> select* from students where pincode=' ';
+
+no rows selected
+
+SQL> select* from students where pincode='';
+
+no rows selected
+
+SQL> select* from students where pincode is NULL;
+
+    ROLLNO NAME            CITY         PINCODE         AGE
+---------- --------------- ------------ -------- ----------
+         2 Kumar           Bombay                        25
+         4 Puneet          Calcutta                      18
+         6 Kamal           Dehradun                      28
+         9 Pankaj          Bombay                        17
+
+SQL> insert into students values(&rollno,&name,&city,&pincode,&age);
+Enter value for rollno: 12
+Enter value for name: ''
+Enter value for city: jdfj
+Enter value for pincode: dfds
+Enter value for age: dsf
+old   1: insert into students values(&rollno,&name,&city,&pincode,&age)
+new   1: insert into students values(12,'',jdfj,dfds,dsf)
+insert into students values(12,'',jdfj,dfds,dsf)
+                                            *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into students values(&rollno,'&name','&city',&pincode,&age);
+Enter value for rollno: 12
+Enter value for name: Gaurav
+Enter value for city: Rampur
+Enter value for pincode: 312125
+Enter value for age: ''
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(12,'Gaurav','Rampur',312125,'')
+
+1 row created.
+
+SQL> /
+Enter value for rollno: ''
+Enter value for name: Manish
+Enter value for city: ''
+Enter value for pincode: 314136
+Enter value for age: ''
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values('','Manish','''',314136,'')
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 14
+Enter value for name: Aviral
+Enter value for city:
+Enter value for pincode: 319143
+Enter value for age: 29
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(14,'Aviral','',319143,29)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 15
+Enter value for name:
+Enter value for city: Gwaliar
+Enter value for pincode: 313149
+Enter value for age: 25
+old   1: insert into students values(&rollno,'&name','&city',&pincode,&age)
+new   1: insert into students values(15,'','Gwaliar',313149,25)
+
+1 row created.
+
+SQL> update table students set city='' where name='Manish';
+update table students set city='' where name='Manish'
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update students set city='' where name='Manish';
+
+1 row updated.
+
+SQL> update students set rollno=13 where name='Manish';
+
+1 row updated.
+
+SQL> update students set city='Meerut' where rollno=13 or rollno=14;
+
+2 rows updated.
+
+SQL> update students set age=age +3;
+
+15 rows updated.
+
+SQL> update students set age=25 where city='Meerut';
+
+2 rows updated.
+
+SQL> alter table students add balance number;
+
+Table altered.
+
+SQL> update students set balance=20000;
+
+15 rows updated.
+
+SQL> select* from students;
+
+    ROLLNO NAME            CITY         PINCODE         AGE    BALANCE
+---------- --------------- ------------ -------- ---------- ----------
+         1 Amit            Delhi        214213           24      20000
+         2 Kumar           Bombay                        28      20000
+         3 Kshitij         Madras       110101           19      20000
+         4 Puneet          Calcutta                      21      20000
+         5 Rohit           Delhi        502207           22      20000
+         6 Kamal           Dehradun                      31      20000
+         7 Shweta          Dehradun     98102            26      20000
+         8 Mohit           Bombay       12434            25      20000
+         9 Pankaj          Bombay                        20      20000
+        10 Parul           dELhi        76312            27      20000
+        11 Rohit           Baroda       12131            32      20000
+
+    ROLLNO NAME            CITY         PINCODE         AGE    BALANCE
+---------- --------------- ------------ -------- ---------- ----------
+        12 Gaurav          Rampur       312125                   20000
+        13 Manish          Meerut       314136           25      20000
+        14 Aviral          Meerut       319143           25      20000
+        15                 Gwaliar      313149           28      20000
+
+15 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
+SQL> update students set balance=balance+500 where city='Bombay' or city='Delhi';
+
+5 rows updated.
+
+SQL> select* from students;
+
+    ROLLNO NAME            CITY         PINCODE         AGE    BALANCE
+---------- --------------- ------------ -------- ---------- ----------
+         1 Amit            Delhi        214213           24      20500
+         2 Kumar           Bombay                        28      20500
+         3 Kshitij         Madras       110101           19      20000
+         4 Puneet          Calcutta                      21      20000
+         5 Rohit           Delhi        502207           22      20500
+         6 Kamal           Dehradun                      31      20000
+         7 Shweta          Dehradun     98102            26      20000
+         8 Mohit           Bombay       12434            25      20500
+         9 Pankaj          Bombay                        20      20500
+        10 Parul           dELhi        76312            27      20000
+        11 Rohit           Baroda       12131            32      20000
+
+    ROLLNO NAME            CITY         PINCODE         AGE    BALANCE
+---------- --------------- ------------ -------- ---------- ----------
+        12 Gaurav          Rampur       312125                   20000
+        13 Manish          Meerut       314136           25      20000
+        14 Aviral          Meerut       319143           25      20000
+        15                 Gwaliar      313149           28      20000
+
+15 rows selected.
+
+SQL> select max(balance) from students;
+
+MAX(BALANCE)
+------------
+       20500
+
+SQL> alter table students modify balance number(10);
+alter table students modify balance number(10)
+                            *
+ERROR at line 1:
+ORA-01440: column to be modified must be empty to decrease precision or scale
+
+
+SQL> alter table students modify city varchar(10);
+
+Table altered.
+
+SQL> create table student2 as select* from students;
+
+Table created.
+
+SQL> select* from student2;
+
+    ROLLNO NAME            CITY       PINCODE         AGE    BALANCE
+---------- --------------- ---------- -------- ---------- ----------
+         1 Amit            Delhi      214213           24      20500
+         2 Kumar           Bombay                      28      20500
+         3 Kshitij         Madras     110101           19      20000
+         4 Puneet          Calcutta                    21      20000
+         5 Rohit           Delhi      502207           22      20500
+         6 Kamal           Dehradun                    31      20000
+         7 Shweta          Dehradun   98102            26      20000
+         8 Mohit           Bombay     12434            25      20500
+         9 Pankaj          Bombay                      20      20500
+        10 Parul           dELhi      76312            27      20000
+        11 Rohit           Baroda     12131            32      20000
+
+    ROLLNO NAME            CITY       PINCODE         AGE    BALANCE
+---------- --------------- ---------- -------- ---------- ----------
+        12 Gaurav          Rampur     312125                   20000
+        13 Manish          Meerut     314136           25      20000
+        14 Aviral          Meerut     319143           25      20000
+        15                 Gwaliar    313149           28      20000
+
+15 rows selected.
+
+SQL> desc student2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(6)
+ NAME                                               VARCHAR2(15)
+ CITY                                               VARCHAR2(10)
+ PINCODE                                            VARCHAR2(8)
+ AGE                                                NUMBER(2)
+ BALANCE                                            NUMBER
+
+SQL> delete from students where age>=25;
+
+9 rows deleted.
+
+SQL> select* from student2;
+
+    ROLLNO NAME            CITY       PINCODE         AGE    BALANCE
+---------- --------------- ---------- -------- ---------- ----------
+         1 Amit            Delhi      214213           24      20500
+         2 Kumar           Bombay                      28      20500
+         3 Kshitij         Madras     110101           19      20000
+         4 Puneet          Calcutta                    21      20000
+         5 Rohit           Delhi      502207           22      20500
+         6 Kamal           Dehradun                    31      20000
+         7 Shweta          Dehradun   98102            26      20000
+         8 Mohit           Bombay     12434            25      20500
+         9 Pankaj          Bombay                      20      20500
+        10 Parul           dELhi      76312            27      20000
+        11 Rohit           Baroda     12131            32      20000
+
+    ROLLNO NAME            CITY       PINCODE         AGE    BALANCE
+---------- --------------- ---------- -------- ---------- ----------
+        12 Gaurav          Rampur     312125                   20000
+        13 Manish          Meerut     314136           25      20000
+        14 Aviral          Meerut     319143           25      20000
+        15                 Gwaliar    313149           28      20000
+
+15 rows selected.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select* from students;
+
+    ROLLNO NAME            CITY       PINCODE         AGE    BALANCE
+---------- --------------- ---------- -------- ---------- ----------
+         1 Amit            Delhi      214213           24      20500
+         2 Kumar           Bombay                      28      20500
+         3 Kshitij         Madras     110101           19      20000
+         4 Puneet          Calcutta                    21      20000
+         5 Rohit           Delhi      502207           22      20500
+         6 Kamal           Dehradun                    31      20000
+         7 Shweta          Dehradun   98102            26      20000
+         8 Mohit           Bombay     12434            25      20500
+         9 Pankaj          Bombay                      20      20500
+        10 Parul           dELhi      76312            27      20000
+        11 Rohit           Baroda     12131            32      20000
+
+    ROLLNO NAME            CITY       PINCODE         AGE    BALANCE
+---------- --------------- ---------- -------- ---------- ----------
+        12 Gaurav          Rampur     312125                   20000
+        13 Manish          Meerut     314136           25      20000
+        14 Aviral          Meerut     319143           25      20000
+        15                 Gwaliar    313149           28      20000
+
+15 rows selected.
+
+SQL> delete from student2 where age>=25;
+
+9 rows deleted.
+
+SQL> select* from student2;
+
+    ROLLNO NAME            CITY       PINCODE         AGE    BALANCE
+---------- --------------- ---------- -------- ---------- ----------
+         1 Amit            Delhi      214213           24      20500
+         3 Kshitij         Madras     110101           19      20000
+         4 Puneet          Calcutta                    21      20000
+         5 Rohit           Delhi      502207           22      20500
+         9 Pankaj          Bombay                      20      20500
+        12 Gaurav          Rampur     312125                   20000
+
+6 rows selected.
+
+SQL> rename student2 to newstudent;
+
+Table renamed.
+
+SQL> truncate newstudent;
+truncate newstudent
+                  *
+ERROR at line 1:
+ORA-03290: Invalid truncate command - missing CLUSTER or TABLE keyword
+
+
+SQL> truncate table newstudent;
+
+Table truncated.
+
+SQL> select * from newstudent;
+
+no rows selected
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from newstudent;
+
+no rows selected
+
+SQL> drop table newstudent;
+
+Table dropped.
+
+SQL> create table newstudent as select* from students where 1=0;
+
+Table created.
+
+SQL> select* from newstudent;
+
+no rows selected
+
+SQL> desc newstudent;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(6)
+ NAME                                               VARCHAR2(15)
+ CITY                                               VARCHAR2(10)
+ PINCODE                                            VARCHAR2(8)
+ AGE                                                NUMBER(2)
+ BALANCE                                            NUMBER
+
+SQL> create table mca as select rollno,name,balance from students ;
+
+Table created.
+
+SQL> select* from mca
+  2  ;
+
+    ROLLNO NAME               BALANCE
+---------- --------------- ----------
+         1 Amit                 20500
+         2 Kumar                20500
+         3 Kshitij              20000
+         4 Puneet               20000
+         5 Rohit                20500
+         6 Kamal                20000
+         7 Shweta               20000
+         8 Mohit                20500
+         9 Pankaj               20500
+        10 Parul                20000
+        11 Rohit                20000
+
+    ROLLNO NAME               BALANCE
+---------- --------------- ----------
+        12 Gaurav               20000
+        13 Manish               20000
+        14 Aviral               20000
+        15                      20000
+
+15 rows selected.
+
+SQL> desc mca
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(6)
+ NAME                                               VARCHAR2(15)
+ BALANCE                                            NUMBER
+
+SQL>
+
+
+
