@@ -1,0 +1,733 @@
+
+SQL> conn aaryan
+Enter password:
+Connected.
+SQL> select* from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+CAR                            TABLE
+DUPLICATE                      TABLE
+EMP2                           TABLE
+EMPLOYEE                       TABLE
+MCA                            TABLE
+NEWEMP                         TABLE
+NEWSTUDENT                     TABLE
+STUDENTS                       TABLE
+
+8 rows selected.
+
+SQL> drop table employee;
+
+Table dropped.
+
+SQL> create table employee(
+  2  empcode number,
+  3  empname varchar,
+  4  empcity varchar,
+  5  dob date,
+  6  doj date,
+  7  salary number
+  8  );
+empname varchar,
+               *
+ERROR at line 3:
+ORA-00906: missing left parenthesis
+
+
+SQL> create table employee(
+  2  empcode number,
+  3  empname varchar,
+  4  dob date,
+  5  doj date,
+  6  salary number
+  7  );
+empname varchar,
+               *
+ERROR at line 3:
+ORA-00906: missing left parenthesis
+
+
+SQL> create table employee(
+  2  empcode number,
+  3  empname varchar2(10),
+  4  dob date,
+  5  doj date,
+  6  salary number
+  7  );
+
+Table created.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPCODE                                            NUMBER
+ EMPNAME                                            VARCHAR2(10)
+ DOB                                                DATE
+ DOJ                                                DATE
+ SALARY                                             NUMBER
+
+SQL> alter table employee drop column dob;
+
+Table altered.
+
+SQL> alter table employee drop column doj;
+
+Table altered.
+
+SQL> alter table employee drop column salary;
+
+Table altered.
+
+SQL> alter table employee add empcity varchar2(10);
+
+Table altered.
+
+SQL> alter table employee add dob date;
+
+Table altered.
+
+SQL> alter table employee add doj date;
+
+Table altered.
+
+SQL> alter table employee add salary number;
+
+Table altered.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPCODE                                            NUMBER
+ EMPNAME                                            VARCHAR2(10)
+ EMPCITY                                            VARCHAR2(10)
+ DOB                                                DATE
+ DOJ                                                DATE
+ SALARY                                             NUMBER
+
+SQL> insert into employee values(&empcode,'&empname','&empcity','&dob','&doj',&salary);
+Enter value for empcode: 1
+Enter value for empname: Yogesh
+Enter value for empcity: Delhi
+Enter value for dob: 1/11/75
+Enter value for doj: 1/1/05
+Enter value for salary: 12000
+old   1: insert into employee values(&empcode,'&empname','&empcity','&dob','&doj',&salary)
+new   1: insert into employee values(1,'Yogesh','Delhi','1/11/75','1/1/05',12000)
+insert into employee values(1,'Yogesh','Delhi','1/11/75','1/1/05',12000)
+                                               *
+ERROR at line 1:
+ORA-01843: not a valid month
+
+
+SQL> /
+Enter value for empcode: 1
+Enter value for empname: Yogesh
+Enter value for empcity: Delhi
+Enter value for dob: 1-11-75
+Enter value for doj: 1-1-05
+Enter value for salary: 12000
+old   1: insert into employee values(&empcode,'&empname','&empcity','&dob','&doj',&salary)
+new   1: insert into employee values(1,'Yogesh','Delhi','1-11-75','1-1-05',12000)
+insert into employee values(1,'Yogesh','Delhi','1-11-75','1-1-05',12000)
+                                               *
+ERROR at line 1:
+ORA-01843: not a valid month
+
+
+SQL> /
+Enter value for empcode: 1
+Enter value for empname: Yogesh
+Enter value for empcity: Delhi
+Enter value for dob: 1-Nov-75
+Enter value for doj: 1-Jan-05
+Enter value for salary: 12000
+old   1: insert into employee values(&empcode,'&empname','&empcity','&dob','&doj',&salary)
+new   1: insert into employee values(1,'Yogesh','Delhi','1-Nov-75','1-Jan-05',12000)
+1 row created.
+
+SQL> /
+Enter value for empcode: 2
+Enter value for empname: Dinesh
+Enter value for empcity: Delhi
+Enter value for dob: 22-May-78
+Enter value for doj: sysdate
+Enter value for salary: 6000
+old   1: insert into employee values(&empcode,'&empname','&empcity','&dob','&doj',&salary)
+new   1: insert into employee values(2,'Dinesh','Delhi','22-May-78','sysdate',6000)
+insert into employee values(2,'Dinesh','Delhi','22-May-78','sysdate',6000)
+                                                           *
+ERROR at line 1:
+ORA-01858: a non-numeric character was found where a numeric was expected
+
+
+SQL> insert into employee values(&empcode,'&empname','&empcity',&dob,&doj,&salary);
+Enter value for empcode: 3
+Enter value for empname: fdsf
+Enter value for empcity: dsfd
+Enter value for dob: fdsf
+Enter value for doj: dsf
+Enter value for salary: fds
+old   1: insert into employee values(&empcode,'&empname','&empcity',&dob,&doj,&salary)
+new   1: insert into employee values(3,'fdsf','dsfd',fdsf,dsf,fds)
+insert into employee values(3,'fdsf','dsfd',fdsf,dsf,fds)
+                                                     *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> /
+Enter value for empcode: 2
+Enter value for empname: Dinesh
+Enter value for empcity: Delhi
+Enter value for dob: '22-May-78'
+Enter value for doj: sysdate
+Enter value for salary: 6000
+old   1: insert into employee values(&empcode,'&empname','&empcity',&dob,&doj,&salary)
+new   1: insert into employee values(2,'Dinesh','Delhi','22-May-78',sysdate,6000)
+
+1 row created.
+
+SQL> /
+Enter value for empcode: 3
+Enter value for empname: Sheena
+Enter value for empcity: Mumbai
+Enter value for dob: '16-Jun-89'
+Enter value for doj: '1-Jun-99'
+Enter value for salary: 50000
+old   1: insert into employee values(&empcode,'&empname','&empcity',&dob,&doj,&salary)
+new   1: insert into employee values(3,'Sheena','Mumbai','16-Jun-89','1-Jun-99',50000)
+
+1 row created.
+
+SQL> /
+Enter value for empcode: 5
+Enter value for empname: Sundar
+Enter value for empcity: Delhi
+Enter value for dob: '17-Aug-82'
+Enter value for doj: sysdate
+Enter value for salary: 4400
+old   1: insert into employee values(&empcode,'&empname','&empcity',&dob,&doj,&salary)
+new   1: insert into employee values(5,'Sundar','Delhi','17-Aug-82',sysdate,4400)
+
+1 row created.
+
+SQL> select empname,dobfrom employee;
+select empname,dobfrom employee
+                              *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select empname,dob from employee;
+
+EMPNAME    DOB
+---------- ---------
+Yogesh     01-NOV-75
+Dinesh     22-MAY-78
+Sheena     16-JUN-89
+Sundar     17-AUG-82
+
+SQL> select empname,dob,sysdate from employee;
+
+EMPNAME    DOB       SYSDATE
+---------- --------- ---------
+Yogesh     01-NOV-75 29-DEC-22
+Dinesh     22-MAY-78 29-DEC-22
+Sheena     16-JUN-89 29-DEC-22
+Sundar     17-AUG-82 29-DEC-22
+
+SQL> select empname,dob,dob+15 from employee;
+
+EMPNAME    DOB       DOB+15
+---------- --------- ---------
+Yogesh     01-NOV-75 16-NOV-75
+Dinesh     22-MAY-78 06-JUN-78
+Sheena     16-JUN-89 01-JUL-89
+Sundar     17-AUG-82 01-SEP-82
+
+SQL> select empname,dob,dob+3 from employee;
+
+EMPNAME    DOB       DOB+3
+---------- --------- ---------
+Yogesh     01-NOV-75 04-NOV-75
+Dinesh     22-MAY-78 25-MAY-78
+Sheena     16-JUN-89 19-JUN-89
+Sundar     17-AUG-82 20-AUG-82
+
+SQL> select empname,dob,dob-3 from employee;
+
+EMPNAME    DOB       DOB-3
+---------- --------- ---------
+Yogesh     01-NOV-75 29-OCT-75
+Dinesh     22-MAY-78 19-MAY-78
+Sheena     16-JUN-89 13-JUN-89
+Sundar     17-AUG-82 14-AUG-82
+
+SQL> select empname,dob,to_char(dob,'DD MM YYYY') from employee;
+
+EMPNAME    DOB       TO_CHAR(DO
+---------- --------- ----------
+Yogesh     01-NOV-75 01 11 1975
+Dinesh     22-MAY-78 22 05 1978
+Sheena     16-JUN-89 16 06 1989
+Sundar     17-AUG-82 17 08 1982
+
+SQL> select empname,dob,to_char(dob,'Day MONTH Year') from employee;
+
+EMPNAME    DOB
+---------- ---------
+TO_CHAR(DOB,'DAYMONTHYEAR')
+--------------------------------------------------------------------------------
+Yogesh     01-NOV-75
+Saturday  NOVEMBER  Nineteen Seventy-Five
+
+Dinesh     22-MAY-78
+Monday    MAY       Nineteen Seventy-Eight
+
+Sheena     16-JUN-89
+Friday    JUNE      Nineteen Eighty-Nine
+
+
+EMPNAME    DOB
+---------- ---------
+TO_CHAR(DOB,'DAYMONTHYEAR')
+--------------------------------------------------------------------------------
+Sundar     17-AUG-82
+Tuesday   AUGUST    Nineteen Eighty-Two
+
+
+SQL> select empname,dob,to_char(dob,'Day MON Year DD MM YY') from employee;
+
+EMPNAME    DOB
+---------- ---------
+TO_CHAR(DOB,'DAYMONYEARDDMMYY')
+--------------------------------------------------------------------------------
+Yogesh     01-NOV-75
+Saturday  NOV Nineteen Seventy-Five 01 11 75
+
+Dinesh     22-MAY-78
+Monday    MAY Nineteen Seventy-Eight 22 05 78
+
+Sheena     16-JUN-89
+Friday    JUN Nineteen Eighty-Nine 16 06 89
+
+
+EMPNAME    DOB
+---------- ---------
+TO_CHAR(DOB,'DAYMONYEARDDMMYY')
+--------------------------------------------------------------------------------
+Sundar     17-AUG-82
+Tuesday   AUG Nineteen Eighty-Two 17 08 82
+
+
+SQL> set linesize 20;
+SQL> select empname,dob,to_char(dob,'Day MON Year DD MM YY') from employee;
+
+EMPNAME    DOB
+---------- ---------
+TO_CHAR(DOB,'DAYMONY
+--------------------
+Yogesh     01-NOV-75
+Saturday  NOV Ninete
+en Seventy-Five 01 1
+1 75
+
+Dinesh     22-MAY-78
+Monday    MAY Ninete
+en Seventy-Eight 22
+05 78
+
+EMPNAME    DOB
+---------- ---------
+TO_CHAR(DOB,'DAYMONY
+--------------------
+
+Sheena     16-JUN-89
+Friday    JUN Ninete
+en Eighty-Nine 16 06
+ 89
+
+Sundar     17-AUG-82
+Tuesday   AUG Ninete
+en Eighty-Two 17 08
+
+EMPNAME    DOB
+---------- ---------
+TO_CHAR(DOB,'DAYMONY
+--------------------
+82
+
+
+SQL> set linesize 200;
+SQL> select empname,dob,to_char(dob,'Day MON Year DD MM YY') from employee;
+
+EMPNAME    DOB       TO_CHAR(DOB,'DAYMONYEARDDMMYY')
+---------- --------- -----------------------------------------------------------------------------------------------------
+Yogesh     01-NOV-75 Saturday  NOV Nineteen Seventy-Five 01 11 75
+Dinesh     22-MAY-78 Monday    MAY Nineteen Seventy-Eight 22 05 78
+Sheena     16-JUN-89 Friday    JUN Nineteen Eighty-Nine 16 06 89
+Sundar     17-AUG-82 Tuesday   AUG Nineteen Eighty-Two 17 08 82
+
+SQL> select empname,dob,to_char(dob,'DD DD MM MM YY YYYY YYYY') from employee;
+
+EMPNAME    DOB       TO_CHAR(DOB,'DDDDMMMMYYY
+---------- --------- ------------------------
+Yogesh     01-NOV-75 01 01 11 11 75 1975 1975
+Dinesh     22-MAY-78 22 22 05 05 78 1978 1978
+Sheena     16-JUN-89 16 16 06 06 89 1989 1989
+Sundar     17-AUG-82 17 17 08 08 82 1982 1982
+
+SQL> select empname,dob,to_char(dob,'DDsp MMsp YYYYsp') from employee;
+
+EMPNAME    DOB       TO_CHAR(DOB,'DDSPMMSPYYYYSP')
+---------- --------- --------------------------------------------------------------
+Yogesh     01-NOV-75 ONE ELEVEN ONE THOUSAND NINE HUNDRED SEVENTY-FIVE
+Dinesh     22-MAY-78 TWENTY-TWO FIVE ONE THOUSAND NINE HUNDRED SEVENTY-EIGHT
+Sheena     16-JUN-89 SIXTEEN SIX ONE THOUSAND NINE HUNDRED EIGHTY-NINE
+Sundar     17-AUG-82 SEVENTEEN EIGHT ONE THOUSAND NINE HUNDRED EIGHTY-TWO
+
+SQL> select empname,dob,to_char(dob,'DDspth MMspth YYYYspth') from employee;
+
+EMPNAME    DOB       TO_CHAR(DOB,'DDSPTHMMSPTHYYYYSPTH')
+---------- --------- --------------------------------------------------------------------
+Yogesh     01-NOV-75 FIRST ELEVENTH ONE THOUSAND NINE HUNDRED SEVENTY-FIFTH
+Dinesh     22-MAY-78 TWENTY-SECOND FIFTH ONE THOUSAND NINE HUNDRED SEVENTY-EIGHTH
+Sheena     16-JUN-89 SIXTEENTH SIXTH ONE THOUSAND NINE HUNDRED EIGHTY-NINTH
+Sundar     17-AUG-82 SEVENTEENTH EIGHTH ONE THOUSAND NINE HUNDRED EIGHTY-SECOND
+
+SQL> select empname,dob,to_char(dob,'DDsp MMsp YYYYsp') from employee;
+
+EMPNAME    DOB       TO_CHAR(DOB,'DDSPMMSPYYYYSP')
+---------- --------- --------------------------------------------------------------
+Yogesh     01-NOV-75 ONE ELEVEN ONE THOUSAND NINE HUNDRED SEVENTY-FIVE
+Dinesh     22-MAY-78 TWENTY-TWO FIVE ONE THOUSAND NINE HUNDRED SEVENTY-EIGHT
+Sheena     16-JUN-89 SIXTEEN SIX ONE THOUSAND NINE HUNDRED EIGHTY-NINE
+Sundar     17-AUG-82 SEVENTEEN EIGHT ONE THOUSAND NINE HUNDRED EIGHTY-TWO
+
+SQL> select empname,dob,to_char(dob,'DD MM YYYY HH MI SS') from employee;
+
+EMPNAME    DOB       TO_CHAR(DOB,'DDMMYY
+---------- --------- -------------------
+Yogesh     01-NOV-75 01 11 1975 12 00 00
+Dinesh     22-MAY-78 22 05 1978 12 00 00
+Sheena     16-JUN-89 16 06 1989 12 00 00
+Sundar     17-AUG-82 17 08 1982 12 00 00
+
+SQL> select empname,dob,to_char(dob,'HH MI SS') from employee;
+
+EMPNAME    DOB       TO_CHAR(
+---------- --------- --------
+Yogesh     01-NOV-75 12 00 00
+Dinesh     22-MAY-78 12 00 00
+Sheena     16-JUN-89 12 00 00
+Sundar     17-AUG-82 12 00 00
+
+SQL> insert into employee values (4,'Amit','Meerut','1-Jan-67','21-Sep-04',15000);
+
+1 row created.
+
+SQL> select empname,dob,to_char(dob,'DD MM YYYY'),to_char(doj,'DD MM YYYY') from employee where empcode=4
+  2  ;
+
+EMPNAME    DOB       TO_CHAR(DO TO_CHAR(DO
+---------- --------- ---------- ----------
+Amit       01-JAN-67 01 01 1967 21 09 2004
+
+SQL> insert into employee values (6,'Arushi','Rajasthan','1-Jan-1674','15-Sep-1734',10000);
+
+1 row created.
+
+SQL> select empname,dob,to_char(dob,'DD MM YYYY'),to_char(doj,'DD MM YYYY') from employee where empcode=6;
+
+EMPNAME    DOB       TO_CHAR(DO TO_CHAR(DO
+---------- --------- ---------- ----------
+Arushi     01-JAN-74 01 01 1674 15 09 1734
+
+SQL> select* from employee;
+
+   EMPCODE EMPNAME    EMPCITY    DOB       DOJ           SALARY
+---------- ---------- ---------- --------- --------- ----------
+         1 Yogesh     Delhi      01-NOV-75 01-JAN-05      12000
+         2 Dinesh     Delhi      22-MAY-78 29-DEC-22       6000
+         3 Sheena     Mumbai     16-JUN-89 01-JUN-99      50000
+         5 Sundar     Delhi      17-AUG-82 29-DEC-22       4400
+         4 Amit       Meerut     01-JAN-67 21-SEP-04      15000
+         6 Arushi     Rajasthan  01-JAN-74 15-SEP-34      10000
+
+6 rows selected.
+
+SQL> select name, salary from employee;
+select name, salary from employee
+       *
+ERROR at line 1:
+ORA-00904: "NAME": invalid identifier
+
+
+SQL> select empname,salary from employee;
+
+EMPNAME        SALARY
+---------- ----------
+Yogesh          12000
+Dinesh           6000
+Sheena          50000
+Sundar           4400
+Amit            15000
+Arushi          10000
+
+6 rows selected.
+
+SQL> select max(salary) from employee;
+
+MAX(SALARY)
+-----------
+      50000
+
+SQL> select min(salary) from employee;
+
+MIN(SALARY)
+-----------
+       4400
+
+SQL> select count(empcode) from employee;
+
+COUNT(EMPCODE)
+--------------
+             6
+
+SQL> select count(*) from employee;
+
+  COUNT(*)
+----------
+         6
+
+SQL> select empname,salary as actualsalary,salary+0.15*salary from employee;
+
+EMPNAME    ACTUALSALARY SALARY+0.15*SALARY
+---------- ------------ ------------------
+Yogesh            12000              13800
+Dinesh             6000               6900
+Sheena            50000              57500
+Sundar             4400               5060
+Amit              15000              17250
+Arushi            10000              11500
+
+6 rows selected.
+
+SQL> select 'The Salary of ',Empname,' is ',salary,' and he belongs to ',empcity from employee;
+
+'THESALARYOF'  EMPNAME    'IS'     SALARY 'ANDHEBELONGSTO'    EMPCITY
+-------------- ---------- ---- ---------- ------------------- ----------
+The Salary of  Yogesh      is       12000  and he belongs to  Delhi
+The Salary of  Dinesh      is        6000  and he belongs to  Delhi
+The Salary of  Sheena      is       50000  and he belongs to  Mumbai
+The Salary of  Sundar      is        4400  and he belongs to  Delhi
+The Salary of  Amit        is       15000  and he belongs to  Meerut
+The Salary of  Arushi      is       10000  and he belongs to  Rajasthan
+
+6 rows selected.
+
+SQL> select name,count(name) from employee;
+select name,count(name) from employee
+                  *
+ERROR at line 1:
+ORA-00904: "NAME": invalid identifier
+
+
+SQL> select empname,count(empname) from employee;
+select empname,count(empname) from employee
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function
+
+
+SQL> select count(empname) from employee;
+
+COUNT(EMPNAME)
+--------------
+             6
+
+SQL> select empname,length(empname) from employee;
+
+EMPNAME    LENGTH(EMPNAME)
+---------- ---------------
+Yogesh                   6
+Dinesh                   6
+Sheena                   6
+Sundar                   6
+Amit                     4
+Arushi                   6
+
+6 rows selected.
+
+SQL> select upper(empname) from employee;
+
+UPPER(EMPN
+----------
+YOGESH
+DINESH
+SHEENA
+SUNDAR
+AMIT
+ARUSHI
+
+6 rows selected.
+
+SQL> select lower(empname) from employee;
+
+LOWER(EMPN
+----------
+yogesh
+dinesh
+sheena
+sundar
+amit
+arushi
+
+6 rows selected.
+
+SQL> select lower(empcity) from employee;
+
+LOWER(EMPC
+----------
+delhi
+delhi
+mumbai
+delhi
+meerut
+rajasthan
+
+6 rows selected.
+
+SQL> select init(empname) from employee;
+select init(empname) from employee
+       *
+ERROR at line 1:
+ORA-00904: "INIT": invalid identifier
+
+
+SQL> select initcap(empname) from employee;
+
+INITCAP(EM
+----------
+Yogesh
+Dinesh
+Sheena
+Sundar
+Amit
+Arushi
+
+6 rows selected.
+
+SQL> select sysdate;
+select sysdate
+             *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+29-DEC-22
+
+SQL> select current_date from dual;
+
+CURRENT_D
+---------
+29-DEC-22
+
+SQL> select current_time from dual;
+select current_time from dual
+       *
+ERROR at line 1:
+ORA-00904: "CURRENT_TIME": invalid identifier
+
+
+SQL> select systime from dual;
+select systime from dual
+       *
+ERROR at line 1:
+ORA-00904: "SYSTIME": invalid identifier
+
+
+SQL> select (current_date,'HH MI SS') from dual;
+select (current_date,'HH MI SS') from dual
+                    *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> select (sysdate,'HH MI SS') from dual;
+select (sysdate,'HH MI SS') from dual
+               *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> select to_char(sysdate,'HH MI SS') from dual;
+
+TO_CHAR(
+--------
+09 43 53
+
+SQL> select sysdate,to_char(sysdate,'HH MI SS') from dual;
+
+SYSDATE   TO_CHAR(
+--------- --------
+29-DEC-22 09 45 28
+
+SQL> select to_char(sysdate,'YYYY') from dual;
+
+TO_C
+----
+2022
+
+SQL> select to_char(sysdate,'Month') from dual;
+
+TO_CHAR(SYSDATE,'MONTH')
+------------------------------------
+December
+
+SQL> select 'The date of birth of ',empname,' is ',to_char(dob,'DD Month YYYYsp')from employee;
+
+'THEDATEOFBIRTHOF'    EMPNAME    'IS' TO_CHAR(DOB,'DDMONTHYYYYSP')
+--------------------- ---------- ---- ----------------------------------------------------------------------------------
+The date of birth of  Yogesh      is  01 November  ONE THOUSAND NINE HUNDRED SEVENTY-FIVE
+The date of birth of  Dinesh      is  22 May       ONE THOUSAND NINE HUNDRED SEVENTY-EIGHT
+The date of birth of  Sheena      is  16 June      ONE THOUSAND NINE HUNDRED EIGHTY-NINE
+The date of birth of  Sundar      is  17 August    ONE THOUSAND NINE HUNDRED EIGHTY-TWO
+The date of birth of  Amit        is  01 January   ONE THOUSAND NINE HUNDRED SIXTY-SEVEN
+The date of birth of  Arushi      is  01 January   ONE THOUSAND SIX HUNDRED SEVENTY-FOUR
+
+6 rows selected.
+
+SQL> select sysdate,to_char(sysdate,'HH',':','MI',':', 'SS') from dual;
+select sysdate,to_char(sysdate,'HH',':','MI',':', 'SS') from dual
+                                        *
+ERROR at line 1:
+ORA-00939: too many arguments for function
+
+
+SQL> select to_char(dob,'DAY') from dual;
+select to_char(dob,'DAY') from dual
+               *
+ERROR at line 1:
+ORA-00904: "DOB": invalid identifier
+
+
+SQL> select to_char(dob,'DAY') from employee;
+
+TO_CHAR(DOB,'DAY')
+------------------------------------
+SATURDAY
+MONDAY
+FRIDAY
+TUESDAY
+SUNDAY
+MONDAY
+
+6 rows selected.
+
+SQL>
