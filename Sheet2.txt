@@ -1,22 +1,19 @@
-
 SQL> conn aaryan
 Enter password:
 Connected.
+
 SQL> select* from tab;
 
 SQL> show user;
 USER is "AARYAN"
-SQL>
+
 SQL> create table employee(empcode number,name varchar2(6),salary number);
 
 Table created.
 
 SQL> desc employee;
- Name
-
-
-       Null?    Type
- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Name       Null?    Type
+ --------------------------------------
  EMPCODE                NUMBER
  NAME                VARCHAR2(6)
  SALARY                NUMBER
@@ -111,14 +108,8 @@ SQL> desc employee;
  Name       Null?    Type
  ------------------------------
  EMPCODE                NUMBER
- NAME
-
-
-                VARCHAR2(25)
- SALARY
-
-
-                NUMBER
+ NAME                VARCHAR2(25)
+ SALARY                NUMBER
 
 SQL> select * from employee;
 
