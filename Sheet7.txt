@@ -203,7 +203,6 @@ SQL> select rollno from student where rollno not in (select rollno from register
 ----------
          6
 
-SQL>
 SQL> select * from student where rollno in(select rollno from register where coursecode in(select coursecode from course where coursename='MCA'));
 
     ROLLNO NAME       CITY
