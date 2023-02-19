@@ -11,6 +11,7 @@ SQL> create table register (rollno number references student, coursecode number 
 
 Table created.
 
+
 SQL> insert into course values(&coursecode,'&coursename',&coursefees,'&department');
 Enter value for coursecode: 101
 Enter value for coursename: MCA
